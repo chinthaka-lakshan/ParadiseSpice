@@ -25,6 +25,11 @@ class AdminSeeder extends Seeder
             [
                 'name' => $name,
                 'password' => Hash::make($password),
+                'nic' => '000000000V',
+                'mobile' => '0000000000',
+                'address' => 'Admin Address',
+                'commission_rate' => '0.00',
+                'commission_amount' => '0.00',
                 'status' => 'active',
             ]
         );

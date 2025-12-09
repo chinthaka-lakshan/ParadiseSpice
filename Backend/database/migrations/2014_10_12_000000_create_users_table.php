@@ -17,6 +17,11 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('nic')->unique();
+            $table->string('mobile')->nullable();
+            $table->string('address')->nullable();
+            $table->string('commission_rate')->default('0.00');
+            $table->string('commission_amount')->default('0.00');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->enum('status', ['active', 'inactive'])->default('active');
