@@ -15,6 +15,12 @@ return new class extends Migration
     {
         Schema::create('stocks', function (Blueprint $table) {
             $table->id();
+            $table->string('product_code')->required();
+            $table->string('product_name')->required();
+            $table->string('unit_price')->required();
+            $table->string('quantity')->required();
+            $table->string('batch_number')->nullable();
+            $table->date('manufacture_date')->nullable();
             $table->timestamps();
         });
     }
