@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\StockController;
+use App\Http\Controllers\OrderController;
 
 
 
@@ -40,5 +41,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/stocks', [StockController::class, 'store']);
     Route::get('/stocks/{id}', [StockController::class, 'show']);
     Route::put('/stocks/{id}', [StockController::class, 'update']);
+    Route::put('/stocks/{id}/quantity', [StockController::class, 'updateQuantity']);
     Route::delete('/stocks/{id}', [StockController::class, 'destroy']);
+
+    // Order management routes
+    Route::get('/orders', [OrderController::class, 'index']);
+    Route::post('/orders', [OrderController::class, 'store']);
 });

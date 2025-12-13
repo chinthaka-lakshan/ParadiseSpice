@@ -17,21 +17,28 @@ class ShopController extends Controller
     //add a shop
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'shop_name' => 'required|string',
             'owner_name' => 'nullable|string',
-            'owner_dob' => 'nullable|string',
+            'owner_dob' => 'nullable|date',
             'contact_number' => 'required|string',
             'address' => 'required|string',
             'map_location' => 'nullable|string',
-            'credit_limit' => 'nullable|string',
-            'credit_balance' => 'nullable|string',
-            'return_balance' => 'nullable|string',
+            'credit_limit' => 'nullable|numeric|min:0',
+            'return_balance' => 'nullable|numeric|min:0',
         ]);
 
-        $shop = Shop::create($request->all());
-        return response()->json(['message' => 'Shop created successfully', 'shop' => $shop], 201);
+        // Set credit_balance equal to credit_limit
+        $validated['credit_balance'] = $validated['credit_limit'] ?? 0;
+
+        $shop = Shop::create($validated);
+
+        return response()->json([
+            'message' => 'Shop created successfully',
+            'shop' => $shop
+        ], 201);
     }
+
 
     //get a single shop
     public function show($id)

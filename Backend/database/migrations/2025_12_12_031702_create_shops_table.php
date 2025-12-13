@@ -21,9 +21,10 @@ return new class extends Migration
             $table->string('contact_number')->required();
             $table->string('address')->required();
             $table->string('map_location')->nullable();
-            $table->string('credit_limit')->default(0);
-            $table->string('credit_balance')->default(0);
-            $table->string('return_balance')->default(0);
+            $table->decimal('credit_limit', 10, 2)->default(0);
+            $table->decimal('credit_balance', 10, 2)->default(0);
+            $table->decimal('return_balance', 10, 2)->default(0);
+
             $table->timestamps();
         });
     }
