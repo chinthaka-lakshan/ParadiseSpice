@@ -60,6 +60,23 @@ class StockController extends Controller
         }
     }
 
+    //quantity update a stock
+    public function updateQuantity(Request $request, $id)
+    {
+        $stock = Stock::find($id);
+        $request->validate([
+            'quantity' => 'required|string',
+        ]);
+        if ($stock) {
+            $newQuantity = (int)$request->quantity;
+            $stock->quantity += $newQuantity;
+            $stock->save();
+            return response()->json(['message' => 'Stock quantity updated successfully', 'stock' => $stock]);
+        } else {
+            return response()->json(['message' => 'Stock not found'], 404);
+        }
+    }
+
     //delete a stock
     public function destroy($id)
     {
