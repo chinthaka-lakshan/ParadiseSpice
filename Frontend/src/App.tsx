@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import Login from './pages/Login';
+// import { useState, useEffect } from 'react';
+ 
 // import {
 //   Sparkles,
 //   Package,
@@ -510,7 +510,20 @@ import Login from './pages/Login';
 // }
 // ,
 
-function App(){
-  return<Login/>
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Login from './components/Login';
+import ForgotPassword from './components/ForgotPassword';
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
+
 export default App;
+
