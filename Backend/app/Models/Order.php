@@ -42,4 +42,8 @@ class Order extends Model
     {
         return $this->belongsTo(User::class, 'driver_id');
     }
+    public function items()
+    {
+        return $this->hasMany(OderItem::class);
+    }
 }
