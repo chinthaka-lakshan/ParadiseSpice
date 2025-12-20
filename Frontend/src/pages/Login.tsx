@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Eye, EyeOff, Lock, Mail } from 'lucide-react';
+import { Eye, EyeOff, Mail } from 'lucide-react';
+import logo from '../assets/LOGO.png';
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -15,21 +16,26 @@ export default function Login() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#F6F6F6] px-4">
       <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <div className="w-14 h-14 mx-auto bg-[#3F52E3] rounded-xl flex items-center justify-center mb-4">
-            <Lock className="text-white w-7 h-7" />
+        
+        {/* ===== Header ===== */}
+        <div className="flex flex-col items-center text-center mb-8">
+          <div className="mb-4">
+            <img
+              src={logo}
+              alt="Business Logo"
+              className="h-24 w-auto object-contain"
+            />
           </div>
-          <h1 className="text-2xl font-bold text-gray-900">
-            Welcome Back
+
+          <h1 className="text-4xl font-bold text-[#3F52E3] ">
+            Login
           </h1>
-          <p className="text-gray-500 text-sm mt-2">
-            Login to your ParadiseSpice account
-          </p>
+         
         </div>
 
-        {/* Login Form */}
+        {/* ===== Login Form ===== */}
         <form onSubmit={handleSubmit} className="space-y-5">
+          
           {/* Email */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -54,14 +60,13 @@ export default function Login() {
               Password
             </label>
             <div className="relative">
-              <Lock className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
               <input
                 type={showPassword ? 'text' : 'password'}
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full pl-10 pr-10 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#3F52E3] focus:outline-none"
+                className="w-full pl-4 pr-10 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#3F52E3] focus:outline-none"
               />
               <button
                 type="button"
@@ -107,18 +112,10 @@ export default function Login() {
         {/* Register */}
         <p className="text-center text-sm text-gray-600">
           Don’t have an account?{' '}
-          <a
-            href="#"
-            className="text-[#F12D2D] font-semibold hover:underline"
-          >
+          <a href="#" className="text-[#F12D2D] font-semibold hover:underline">
             Create Account
           </a>
         </p>
-
-        {/* Highlight */}
-        <div className="mt-6 bg-[#EFE891] text-gray-800 text-xs p-3 rounded-lg text-center">
-          🌿 Fresh spices • Fast delivery • Trusted quality
-        </div>
       </div>
     </div>
   );
