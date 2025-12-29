@@ -15,4 +15,9 @@ class OderItem extends Model
         'quantity',
         'price',
     ];
+
+    public function stock()
+    {
+        return $this->belongsTo(Stock::class, 'product_id');
+    }
 }
