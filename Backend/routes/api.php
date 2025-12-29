@@ -8,6 +8,7 @@ use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderReturnController;
 
 
 
@@ -47,4 +48,12 @@ Route::middleware('auth:sanctum')->group(function () {
     // Order management routes
     Route::get('/orders', [OrderController::class, 'index']);
     Route::post('/orders', [OrderController::class, 'store']);
+    Route::get('/orders/{id}', [OrderController::class, 'show']);
+    Route::delete('/orders/{id}', [OrderController::class, 'destroy']);
+
+    // Return management routes
+    Route::post('/returns', [OrderReturnController::class, 'store']);
+    Route::get('/returns', [OrderReturnController::class, 'index']);
+    Route::get('/returns/{id}', [OrderReturnController::class, 'show']);
+    Route::delete('/returns/{id}', [OrderReturnController::class, 'destroy']);
 });
