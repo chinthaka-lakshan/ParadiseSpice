@@ -1,0 +1,73 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# These files are text and should be normalized
+*.js text
+*.ts text
+*.tsx text
+*.jsx text
+*.json text
+*.css text
+*.scss text
+*.html text
+*.md text
+*.yml text
+*.yaml text
+*.xml text
+*.txt text
+
+# These files are binary and should not be modified
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.svg binary
+*.svgz binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.eot binary
+*.otf binary
+*.mp4 binary
+*.mp3 binary
+*.wav binary
+*.zip binary
+*.tar.gz binary
+*.rar binary
+
+# Node modules - EXCLUDE THEM FROM LINE ENDING CHANGES
+/node_modules/** -text
+/node_modules/** linguist-vendored
+/node_modules/** export-ignore
+/node_modules/* -diff
+
+# Package files
+package.json text
+package-lock.json text
+yarn.lock text
+
+# Configuration files
+*.config.js text
+*.config.ts text
+tsconfig.json text
+tailwind.config.js text
+vite.config.js text
+vite.config.ts text
+next.config.js text
+
+# Git files
+.gitattributes export-ignore
+.gitignore export-ignore
+
+# IDE files
+.idea/ export-ignore
+.vscode/ export-ignore
+*.code-workspace export-ignore
+
+# Build directories
+/dist export-ignore
+/build export-ignore
+/.next export-ignore
+/.nuxt export-ignore

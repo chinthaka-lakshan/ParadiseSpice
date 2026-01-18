@@ -15,5 +15,19 @@
   },
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
-  }
+  },
+
+  "files.exclude": {
+    "**/vendor": true,
+    "**/node_modules": true
+  },
+  "files.watcherExclude": {
+    "**/vendor/**": true,
+    "**/node_modules/**": true
+  },
+  "search.exclude": {
+    "**/vendor": true,
+    "**/node_modules": true
+  },
+  "prettier.ignorePath": ".gitignore"
 }

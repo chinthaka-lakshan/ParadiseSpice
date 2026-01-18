@@ -4,24 +4,29 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderReturnController;
 
-
-
+// Public routes
 Route::post('/login', [AuthController::class, 'login']);
-Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLink']);
+Route::post('/reset-password', [ForgotPasswordController::class, 'resetPassword']);
 
 Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout']);
     // User management routes
-    Route::post('/users', [UserController::class, 'createUser']);
-    Route::put('/users/{id}', [UserController::class, 'updateUser']);
+    Route::middleware('role:Master Admin,Admin')->group(function () {
+        Route::post('/users', [UserController::class, 'createUser']);
+        Route::put('/users/{id}', [UserController::class, 'updateUser']);
+        Route::delete('/users/{id}', [UserController::class, 'deleteUser']);
+    });
+    // These routes accessible by all authenticated users
     Route::get('/users', [UserController::class, 'getAllUsers']);
     Route::get('/users/{id}', [UserController::class, 'getUser']);
-    Route::delete('/users/{id}', [UserController::class, 'deleteUser']);
 
     // Vehicle management routes
     Route::get('/vehicles', [VehicleController::class, 'index']);
