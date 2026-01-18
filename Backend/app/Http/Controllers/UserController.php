@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Role;
@@ -11,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use App\Notifications\NewUserNotification;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
