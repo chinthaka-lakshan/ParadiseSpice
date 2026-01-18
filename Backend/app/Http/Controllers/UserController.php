@@ -8,6 +8,9 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Role;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
+use App\Notifications\NewUserNotification;
+use Illuminate\Support\Facades\Notification;
 
 class UserController extends Controller
 {
@@ -17,7 +20,7 @@ class UserController extends Controller
         $users = User::with('roles')->get();
         return response()->json($users, 200);
     }
-    // Create a new user with role assignment
+    // Create a new user with role assignment and send email
     public function createUser(Request $request)
     {
         $request->validate([
@@ -32,6 +35,9 @@ class UserController extends Controller
             'role' => 'required|string|exists:roles,name',
         ]);
 
+        // Generate a random password if not provided
+        $password = $request->password ?? Str::random(8);
+
         // Create the user
         $user = User::create([
             'name' => $request->name,
@@ -41,7 +47,7 @@ class UserController extends Controller
             'address' => $request->address,
             'commission_rate' => $request->commission_rate ?? '0.00',
             'commission_amount' => $request->commission_amount ?? '0.00',
-            'password' => Hash::make($request->password),
+            'password' => Hash::make($password),
             'status' => 'active',
         ]);
 
@@ -49,7 +55,18 @@ class UserController extends Controller
         $role = Role::where('name', $request->role)->first();
         $user->roles()->attach($role->id);
 
-        return response()->json(['message' => 'User created successfully', 'user' => $user], 201);
+        // Send email notification with credentials
+        try {
+            Notification::send($user, new NewUserNotification($user, $password));
+        } catch (\Exception $e) {
+            \Log::error('Failed to send email: ' . $e->getMessage());
+        }
+
+        return response()->json([
+            'message' => 'User created successfully and email sent',
+            'user' => $user->load('roles'),
+            'temporary_password' => $password // Return for testing purposes
+        ], 201);
     }
 
     // User Update Method
